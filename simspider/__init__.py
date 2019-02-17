@@ -1,2 +1,2 @@
 from .item import Item
-from .field import BaseField, TextField
+from .field import BaseField, TextField, AttrField
