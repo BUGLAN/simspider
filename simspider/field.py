@@ -1,4 +1,5 @@
 import re
+
 from lxml import etree
 
 
@@ -10,10 +11,6 @@ class BaseField:
 
 
 class TextField(BaseField):
-<<<<<<< HEAD
-    def __init__(self, css_select=None):
-        super().__init__(css_select=css_select)
-=======
     def __init__(self,
                  css_select=None,
                  xpath_select=None,
@@ -33,7 +30,6 @@ class TextField(BaseField):
         if not value and self.default:
             value = self.default
         return value
->>>>>>> dev
 
     def extract(self, html):
         value = ''
@@ -51,10 +47,9 @@ class TextField(BaseField):
                 return items[0]
             return items
         else:
-<<<<<<< HEAD
             raise ValueError('{} field: css_select is expected'.format(
                 self.__class__.__name__))
-        text = ''
+            text = ''
         for node in value[0].itertext():
             text += node.strip()
         value = text
@@ -72,21 +67,14 @@ class AttrField(BaseField):
             value = html.cssselect(self.css_select)
             value = value[0].get(self.attr, None) if len(value) == 1 else value
             if not value:
-                raise ValueError(
-                    '{}: "{}" is not validable attribute'.format(
-                        self.__class__.__name__, self.attr))
+                raise ValueError('{}: "{}" is not validable attribute'.format(
+                    self.__class__.__name__, self.attr))
         else:
             raise ValueError('{} field: css_select is expected'.format(
                 self.__class__.__name__))
         return value
-=======
-            raise ValueError(
-                '{} field: css_select or xpath_select is expected'.format(
-                    self.__class__.__name__))
-        return self._parse_from_css_or_xpath(value)
 
 
 class Attribute(BaseField):
     def __init__(self, css_select=None, xpath_select=None, default=None):
         super().__init__(css_select, xpath_select, default)
->>>>>>> dev
