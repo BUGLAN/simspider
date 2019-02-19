@@ -21,7 +21,7 @@ class Item(metaclass=ItemMeta):
         if html is None or not isinstance(html, etree._Element):
             raise ValueError('etree._Element is expected')
         for field_name, field_value in self._fields.items():
-            get_field = getattr(self, '_{}'.format(field_name, None))
+            get_field = getattr(self, '_{}'.format(field_name), None)
             value = field_value.extract_value(html) if isinstance(
                 field_value, BaseField) else field_value
             if get_field:
