@@ -49,7 +49,7 @@ class TextField(BaseField):
         else:
             raise ValueError('{} field: css_select is expected'.format(
                 self.__class__.__name__))
-            text = ''
+        text = ''
         for node in value[0].itertext():
             text += node.strip()
         value = text
