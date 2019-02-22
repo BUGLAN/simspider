@@ -44,7 +44,7 @@ class Item(metaclass=ItemMeta):
         return html
 
     @classmethod
-    def get_item(cls, html='', url='', **kwargs):
+    def get(cls, html='', url='', **kwargs):
         html = cls._get_html(html, url, **kwargs)
         item = {}
         ins_item = cls(html=html)

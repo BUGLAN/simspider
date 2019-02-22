@@ -49,10 +49,19 @@ class TextField(BaseField):
         else:
             raise ValueError('{} field: css_select is expected'.format(
                 self.__class__.__name__))
-        text = ''
-        for node in value[0].itertext():
-            text += node.strip()
-        value = text
+        if len(value) == 0:
+            return None
+        elif len(value) == 1:
+            text = ''
+            for node in value[0].itertext():
+                text += node.strip()
+            value = text
+        else:
+            for index, item in enumerate(value[:]):
+                text = ''
+                for node in item.itertext():
+                    text += node.strip()
+                value[index] = text
         return value
 
 

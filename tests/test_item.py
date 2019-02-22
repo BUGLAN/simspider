@@ -9,5 +9,5 @@ class GitHub(Item):
 
 
 def test_item():
-    data = GitHub.get_item(url='https://github.com/BUGLAN/simspider')
+    data = GitHub.get(url='https://github.com/BUGLAN/simspider')
     assert data == {'username': 'BUGLAN'}
