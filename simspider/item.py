@@ -1,22 +1,24 @@
-from lxml import etree
-
 import requests
+from lxml import etree
 
 from .field import BaseField
 
 
 class ItemMeta(type):
     """ItemMeta metaclass"""
+
     def __new__(cls, name, bases, attrs):
-        _fields = dict({(field_name, attrs.pop(field_name))
-                        for field_name, obj in list(attrs.items())
-                        if isinstance(obj, BaseField)})
+        _fields = {
+            field_name: attrs.pop(field_name)
+            for field_name, obj in list(attrs.items())
+            if isinstance(obj, BaseField)
+        }
+
         attrs['_fields'] = _fields
         return type.__new__(cls, name, bases, attrs)
 
 
 class Item(metaclass=ItemMeta):
-
     def __init__(self, html):
         if html is None or not isinstance(html, etree._Element):
             raise ValueError('etree._Element is expected')
