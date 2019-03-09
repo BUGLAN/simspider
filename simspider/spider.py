@@ -1,5 +1,4 @@
-import sys
-from multiprocessing import Pool, cpu_count, freeze_support
+from multiprocessing import Pool, cpu_count
 
 from lxml import etree
 
@@ -42,16 +41,26 @@ class Spider:
 
     @classmethod
     def _callback(cls, requests):
+        """_callback
+        use multiprocess to crawl page
+
+        :param requests: List[Request] or Request
+        """
         results = []
         if isinstance(requests, list):
+            # if here is requests use multiple processes
+            _pool = Pool(cls.pool_size)
             for request in requests:
-                for r in request():
-                    results.append(r)
+                result = _pool.apply_async(request)
+                results.append(result)
+            _pool.close()
+            _pool.join()
         elif isinstance(requests, Request):
             requests()
         for result in results:
-            if result is not None:
-                cls._callback(result)
+            echo_callback = result.get()
+            if echo_callback is not None:
+                cls._callback(echo_callback)
 
     def e_html(self, html):
         return etree.HTML(html)

@@ -22,7 +22,6 @@ class BiquegeSpider(Spider):
             yield Request(url=page, callback=self.parse_item)
 
     def parse_item(self, res):
-        print(a + 1)
         with open('a.txt', 'a+') as f:
             f.write(res.html)
 
