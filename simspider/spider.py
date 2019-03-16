@@ -42,6 +42,9 @@ class Spider:
 
     @classmethod
     def _callback(cls, requests):
+        """_callback
+        request url with multi process
+        """
         results = []
         if isinstance(requests, list):
             for request in requests:

@@ -12,3 +12,8 @@ __pycache__/
 
 # other file
 spider_biquge.py
+
+# python build files
+build/
+dist/
+*.egg-info/
